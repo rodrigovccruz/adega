@@ -28,14 +28,14 @@ Visão → Constituição → Specs → Design → Plano → Implementação →
 
 | Spec | Status |
 |------|--------|
-| [01-autenticacao.md](./specs/01-autenticacao.md) | pronta |
-| [02-vinhos.md](./specs/02-vinhos.md) | pronta |
-| [03-sugestoes-gastronomicas.md](./specs/03-sugestoes-gastronomicas.md) | pronta |
+| [01-autenticacao.md](./specs/01-autenticacao.md) | implementada |
+| [02-vinhos.md](./specs/02-vinhos.md) | implementada |
+| [03-sugestoes-gastronomicas.md](./specs/03-sugestoes-gastronomicas.md) | implementada |
 
 ## MVP em uma frase
 
 Usuário cria conta, cadastra vinhos da adega e associa sugestões gastronômicas a cada rótulo, podendo buscar pelo vinho ou pelo prato.
 
-## Próximo passo
+## Status
 
-Após aprovação deste plano: **Fase 0 — Fundação** (scaffold Next.js + Prisma + Postgres).
+MVP implementado no código (Next.js + Prisma + Postgres). Setup em `README.md` na raiz.
