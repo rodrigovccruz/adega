@@ -2,7 +2,7 @@
 
 ## Status
 
-`aprovada para planejamento`
+`implementada`
 
 ## Objetivo
 
@@ -40,12 +40,12 @@ Um vinho pode ter **N sugestões**.
 
 ## Critérios de aceite
 
-- [ ] Posso cadastrar 1+ sugestões em um vinho
-- [ ] Sugestão sem título ou categoria falha validação
-- [ ] Remover sugestão não remove o vinho
-- [ ] Busca por "queijo" retorna vinhos com sugestão contendo esse termo ou categoria queijo
-- [ ] Usuário não consegue criar sugestão em vinho de outro usuário
-- [ ] Excluir vinho remove suas sugestões em cascata
+- [x] Posso cadastrar 1+ sugestões em um vinho
+- [x] Sugestão sem título ou categoria falha validação
+- [x] Remover sugestão não remove o vinho
+- [x] Busca por "queijo" retorna vinhos com sugestão contendo esse termo ou categoria queijo
+- [x] Usuário não consegue criar sugestão em vinho de outro usuário
+- [x] Excluir vinho remove suas sugestões em cascata
 
 ## Regras de negócio
 

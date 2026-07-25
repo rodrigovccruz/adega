@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: adega
+      POSTGRES_PASSWORD: adega
+      POSTGRES_DB: adega
+    ports:
+      - "5432:5432"
+    volumes:
+      - adega_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  adega_postgres_data:

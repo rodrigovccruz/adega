@@ -2,7 +2,7 @@
 
 ## Status
 
-`aprovada para planejamento`
+`implementada`
 
 ## Objetivo
 
@@ -46,12 +46,12 @@ Como usuário autenticado, quero cadastrar e controlar meus vinhos para saber o 
 
 ## Critérios de aceite
 
-- [ ] Usuário A não vê vinhos do usuário B
-- [ ] Criar vinho sem nome/produtor/tipo/quantidade falha com validação
-- [ ] Quantidade não pode ficar negativa
-- [ ] Exclusão remove o vinho e suas sugestões gastronômicas
-- [ ] Busca "malbec" encontra vinhos cujo nome/uva/produtor contenha o termo
-- [ ] Filtro "somente em estoque" oculta quantidade = 0
+- [x] Usuário A não vê vinhos do usuário B
+- [x] Criar vinho sem nome/produtor/tipo/quantidade falha com validação
+- [x] Quantidade não pode ficar negativa
+- [x] Exclusão remove o vinho e suas sugestões gastronômicas
+- [x] Busca "malbec" encontra vinhos cujo nome/uva/produtor contenha o termo
+- [x] Filtro "somente em estoque" oculta quantidade = 0
 
 ## Regras de negócio
 

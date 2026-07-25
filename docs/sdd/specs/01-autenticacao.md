@@ -2,7 +2,7 @@
 
 ## Status
 
-`aprovada para planejamento`
+`implementada`
 
 ## Objetivo
 
@@ -34,13 +34,13 @@ Como visitante, quero me cadastrar e entrar com usuário e senha para manter min
 
 ## Critérios de aceite
 
-- [ ] Cadastro com dados válidos cria conta e autentica o usuário
-- [ ] Cadastro com e-mail já usado retorna erro claro
-- [ ] Login com credenciais corretas abre a adega
-- [ ] Login com credenciais inválidas mostra erro genérico
-- [ ] Acessar `/vinhos` sem sessão redireciona para login
-- [ ] Logout impede acesso às rotas protegidas
-- [ ] Senha nunca é retornada em respostas da API
+- [x] Cadastro com dados válidos cria conta e autentica o usuário
+- [x] Cadastro com e-mail já usado retorna erro claro
+- [x] Login com credenciais corretas abre a adega
+- [x] Login com credenciais inválidas mostra erro genérico
+- [x] Acessar `/vinhos` sem sessão redireciona para login
+- [x] Logout impede acesso às rotas protegidas
+- [x] Senha nunca é retornada em respostas da API
 
 ## Fora de escopo
 
