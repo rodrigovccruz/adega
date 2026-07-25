@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum WineType {
+  TINTO
+  BRANCO
+  ROSE
+  ESPUMANTE
+  FORTIFICADO
+  OUTRO
+}
+
+enum PairingCategory {
+  CARNE
+  PEIXE
+  MASSA
+  QUEIJO
+  SOBREMESA
+  VEGETARIANO
+  OCASIAO
+  OUTRO
+}
+
+enum PairingIntensity {
+  LEVE
+  MEDIA
+  INTENSA
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  wines        Wine[]
+}
+
+model Wine {
+  id            String                   @id @default(cuid())
+  userId        String
+  user          User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  producer      String
+  type          WineType
+  grape         String?
+  country       String?
+  region        String?
+  vintage       Int?
+  alcoholPct    Float?
+  quantity      Int                      @default(0)
+  purchasePrice Float?
+  location      String?
+  notes         String?
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime                 @updatedAt
+  pairings      GastronomicSuggestion[]
+
+  @@index([userId, name])
+  @@index([userId, type])
+}
+
+model GastronomicSuggestion {
+  id          String            @id @default(cuid())
+  wineId      String
+  wine        Wine              @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  title       String
+  category    PairingCategory
+  description String?
+  intensity   PairingIntensity?
+  createdAt   DateTime          @default(now())
+
+  @@index([wineId])
+}
