@@ -91,15 +91,50 @@ Cada fase gera um PR vertical com critérios de aceite da spec correspondente.
 
 ---
 
+## Fase 5 — Foto do rótulo com OCR (Spec 04)
+
+**Tasks**
+
+1. Model `Wine.labelPhotoUrl` + migration
+2. Configurar storage de blob (upload da foto)
+3. `POST /api/wines/label-scan`: upload + OCR (Tesseract.js) + heurística de extração (nome/produtor/safra/tipo)
+4. UI: captura/upload de foto no formulário de cadastro, indicador de carregamento, pré-preenchimento revisável
+5. Exibir foto do rótulo no detalhe do vinho
+6. Testes: extração best-effort, fallback sem OCR, autorização da foto
+
+**DoD**
+
+- Critérios de `specs/04-foto-rotulo-ocr.md` atendidos
+- Riscos conhecidos (limite de tempo/tamanho serverless do Tesseract.js, precisão em rótulos estilizados) validados em ambiente de deploy real
+
+---
+
+## Fase 6 — Integração com dados externos (Spec 05)
+
+**Tasks**
+
+1. Model `ExternalWineInfo` + migration
+2. Interface `WineExternalInfoProvider` + implementação para Wine-Searcher
+3. `POST /api/wines/:id/external-info`: busca/refresh com cache por `fetchedAt`
+4. UI: bloco "Informações externas" no detalhe do vinho (preço, nota, comentários, atribuição de fonte)
+5. Tratamento de "não encontrado" e de falha/indisponibilidade da API externa
+6. Testes: autorização, cache/refresh, fallback sem correspondência
+
+**DoD**
+
+- Critérios de `specs/05-integracao-dados-externos.md` atendidos
+- Chave `WINE_SEARCHER_API_KEY` configurada (ou provider mockável para desenvolvimento sem a chave)
+
+---
+
 ## Backlog pós-MVP (não implementar agora)
 
 | Item | Spec futura |
 |------|-------------|
-| Recuperação de senha | Spec 04 |
-| Upload de foto do rótulo | Spec 05 |
-| Notas de degustação | Spec 06 |
-| Export CSV da adega | Spec 07 |
-| Adega compartilhada (família) | Spec 08 |
+| Recuperação de senha | Spec 06 |
+| Notas de degustação | Spec 07 |
+| Export CSV da adega | Spec 08 |
+| Adega compartilhada (família) | Spec 09 |
 
 ---
 
@@ -110,6 +145,8 @@ Cada fase gera um PR vertical com critérios de aceite da spec correspondente.
 3. `feat: wine inventory crud`
 4. `feat: gastronomic pairings`
 5. `feat: mvp polish + e2e`
+6. `feat: label photo ocr`
+7. `feat: external wine data integration`
 
 ---
 
@@ -127,5 +164,14 @@ Cada fase gera um PR vertical com critérios de aceite da spec correspondente.
 |--------|---------------------|-------------|
 | Stack | Next.js + Prisma + Postgres | Outra full-stack |
 | Auth | Credentials (e-mail/senha) | Incluir Google depois |
-| Foto do vinho | Fora do MVP | Incluir upload simples na Fase 2 |
 | Idioma UI | pt-BR | — |
+
+## Decisões já confirmadas (v1.1)
+
+| Tópico | Decisão | Spec |
+|--------|---------|------|
+| OCR do rótulo | Tesseract (servidor, sem API paga de visão) | 04 |
+| Dados externos do vinho | Wine-Searcher API (paga) atrás de interface própria | 05 |
+
+Pendente antes de implementar a Fase 6: confirmar que a conta/chave da
+Wine-Searcher API está disponível (`WINE_SEARCHER_API_KEY`).

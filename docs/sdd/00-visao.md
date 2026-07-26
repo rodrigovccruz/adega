@@ -32,8 +32,6 @@ Inclui:
 Fora do MVP (backlog):
 
 - Compartilhamento público de adega
-- Scanner de rótulo / OCR
-- Integração com e-commerce
 - App mobile nativo
 - Multi-usuário na mesma adega (família)
 - Avaliações e notas de degustação avançadas
@@ -46,3 +44,20 @@ Um usuário consegue, em menos de 5 minutos após o cadastro:
 2. Cadastrar um vinho
 3. Associar ao menos uma sugestão gastronômica
 4. Encontrar esse vinho filtrando por prato ou tipo
+
+## Escopo v1.1 (pós-MVP, aprovado para spec)
+
+MVP validado, mas o usuário ainda cadastra tudo manualmente e não tem referência de
+preço/avaliação de mercado. Duas evoluções aprovadas para especificação:
+
+- **Scanner de rótulo (OCR)** — tirar foto do rótulo na hora de cadastrar e
+  pré-preencher nome/produtor/safra/tipo automaticamente. Ver
+  [`specs/04-foto-rotulo-ocr.md`](./specs/04-foto-rotulo-ocr.md).
+- **Integração com dados externos de vinho** — buscar preço médio de mercado,
+  nota/avaliação e comentários de uma fonte externa (Wine-Searcher) para
+  cada vinho cadastrado. Ver
+  [`specs/05-integracao-dados-externos.md`](./specs/05-integracao-dados-externos.md).
+
+Continuam fora de escopo (backlog não priorizado): Integração com e-commerce
+(compra direta), compartilhamento público de adega, app mobile nativo,
+multi-usuário na mesma adega, avaliações e notas de degustação avançadas.

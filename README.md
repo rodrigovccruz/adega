@@ -20,6 +20,11 @@ Plano completo: [`docs/sdd/README.md`](./docs/sdd/README.md)
 MVP implementado (Fases 0–4 do plano SDD): autenticação, inventário de vinhos e
 sugestões gastronômicas com testes automatizados.
 
+Em planejamento (v1.1, ainda não implementado): foto do rótulo com OCR
+([spec 04](./docs/sdd/specs/04-foto-rotulo-ocr.md)) e integração com dados
+externos de preço/avaliação via Wine-Searcher
+([spec 05](./docs/sdd/specs/05-integracao-dados-externos.md)).
+
 ## Stack
 
 Next.js (App Router) + TypeScript, Prisma + PostgreSQL, Tailwind CSS, Zod, Vitest.
