@@ -17,12 +17,12 @@ de um vinho da minha adega para ter uma referência externa sobre o rótulo.
 
 ## Abordagem técnica
 
-Integração com **Wine-Searcher API** (provedor pago). O acesso é feito sob
+Integração com **GrapeMinds API** (provedor pago). O acesso é feito sob
 demanda (usuário aciona a busca), nunca automaticamente em toda visita à
 página, para controlar custo de chamadas de API.
 
 > Decisão pendente antes da implementação: confirmar que a conta/plano da
-> Wine-Searcher API está contratado e a chave de API disponível. A integração
+> GrapeMinds API está contratado e a chave de API disponível. A integração
 > é desenhada atrás de uma interface própria (`WineExternalInfoProvider`) para
 > permitir trocar de provedor no futuro sem reescrever a spec.
 
@@ -33,7 +33,7 @@ página, para controlar custo de chamadas de API.
 | Campo | Tipo | Obrigatório | Notas |
 |-------|------|-------------|-------|
 | `wineId` | ref (único, 1:1 com `Wine`) | sim | Cascade delete com o vinho |
-| `provider` | enum | sim | `wine_searcher` (permite adicionar outros no futuro) |
+| `provider` | enum | sim | `grapeminds` (permite adicionar outros no futuro) |
 | `averagePrice` | number | não | Preço médio de mercado, na moeda retornada pelo provedor |
 | `currency` | string | não | Ex.: `BRL`, `USD` |
 | `rating` | number | não | Nota/avaliação agregada do provedor |
@@ -46,7 +46,7 @@ página, para controlar custo de chamadas de API.
 | ID | Requisito |
 |----|-----------|
 | EXT-01 | No detalhe do vinho, usuário pode acionar "Buscar informações externas" |
-| EXT-02 | Sistema busca por nome + produtor + safra na Wine-Searcher API |
+| EXT-02 | Sistema busca por nome + produtor + safra na GrapeMinds API |
 | EXT-03 | Resultado (preço médio, nota, resumo de comentários, link de origem) é exibido no detalhe do vinho |
 | EXT-04 | Resultado buscado fica em cache (`fetchedAt`); nova busca automática não ocorre a cada visita à página |
 | EXT-05 | Usuário pode forçar atualização manual do dado externo (novo fetch) |
@@ -70,7 +70,7 @@ página, para controlar custo de chamadas de API.
 - [ ] Vinho não encontrado na fonte externa mostra mensagem clara, sem quebrar a página
 - [ ] Indisponibilidade da API externa (erro/timeout) não impede visualizar o resto dos dados do vinho
 - [ ] Usuário não consegue acionar/ver dado externo de vinho de outro usuário
-- [ ] Toda informação externa exibida traz a atribuição da fonte (Wine-Searcher) e link de origem quando disponível
+- [ ] Toda informação externa exibida traz a atribuição da fonte (GrapeMinds) e link de origem quando disponível
 
 ## Regras de negócio
 
@@ -86,6 +86,6 @@ página, para controlar custo de chamadas de API.
 
 ## Riscos e decisões conhecidas
 
-- **Contrato/chave da Wine-Searcher API**: precisa ser confirmado e configurado (`WINE_SEARCHER_API_KEY`) antes da implementação real da chamada — sem isso, a integração fica implementada atrás da interface `WineExternalInfoProvider` mas sem provedor real conectado.
+- **Contrato/chave da GrapeMinds API**: precisa ser confirmado e configurado (`GRAPEMINDS_API_KEY`) antes da implementação real da chamada — sem isso, a integração fica implementada atrás da interface `WineExternalInfoProvider` mas sem provedor real conectado.
 - **Custo por chamada**: por ser API paga, o design evita buscas automáticas/recorrentes; todo fetch é uma ação explícita do usuário.
 - **Confiabilidade do matching** (nome + produtor + safra pode não bater exatamente com o catálogo do provedor): aceitar que nem todo vinho cadastrado terá correspondência exata: comportamento definido em EXT-06.

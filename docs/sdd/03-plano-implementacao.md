@@ -114,7 +114,7 @@ Cada fase gera um PR vertical com critérios de aceite da spec correspondente.
 **Tasks**
 
 1. Model `ExternalWineInfo` + migration
-2. Interface `WineExternalInfoProvider` + implementação para Wine-Searcher
+2. Interface `WineExternalInfoProvider` + implementação para GrapeMinds
 3. `POST /api/wines/:id/external-info`: busca/refresh com cache por `fetchedAt`
 4. UI: bloco "Informações externas" no detalhe do vinho (preço, nota, comentários, atribuição de fonte)
 5. Tratamento de "não encontrado" e de falha/indisponibilidade da API externa
@@ -123,7 +123,7 @@ Cada fase gera um PR vertical com critérios de aceite da spec correspondente.
 **DoD**
 
 - Critérios de `specs/05-integracao-dados-externos.md` atendidos
-- Chave `WINE_SEARCHER_API_KEY` configurada (ou provider mockável para desenvolvimento sem a chave)
+- Chave `GRAPEMINDS_API_KEY` configurada (ou provider mockável para desenvolvimento sem a chave)
 
 ---
 
@@ -171,7 +171,7 @@ Cada fase gera um PR vertical com critérios de aceite da spec correspondente.
 | Tópico | Decisão | Spec |
 |--------|---------|------|
 | OCR do rótulo | Tesseract (servidor, sem API paga de visão) | 04 |
-| Dados externos do vinho | Wine-Searcher API (paga) atrás de interface própria | 05 |
+| Dados externos do vinho | GrapeMinds API (paga) atrás de interface própria | 05 |
 
 Pendente antes de implementar a Fase 6: confirmar que a conta/chave da
-Wine-Searcher API está disponível (`WINE_SEARCHER_API_KEY`).
+GrapeMinds API está disponível (`GRAPEMINDS_API_KEY`).

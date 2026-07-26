@@ -40,11 +40,11 @@ Usuário cria conta, cadastra vinhos da adega e associa sugestões gastronômica
 
 ## v1.1 em uma frase
 
-Ao cadastrar, o usuário pode tirar foto do rótulo para pré-preencher o formulário (OCR) e consultar preço/nota/comentários de referência de uma fonte externa (Wine-Searcher) para cada vinho.
+Ao cadastrar, o usuário pode tirar foto do rótulo para pré-preencher o formulário (OCR) e consultar preço/nota/comentários de referência de uma fonte externa (GrapeMinds) para cada vinho.
 
 ## Próximo passo
 
 MVP (Fases 0–4) implementado e em produção. Specs 04 e 05 aprovadas para
 planejamento — próximo passo é **Fase 5 — Foto do rótulo com OCR**, seguida
 da **Fase 6 — Integração com dados externos** (esta última depende de
-confirmar o acesso à Wine-Searcher API antes de implementar a chamada real).
+confirmar o acesso à GrapeMinds API antes de implementar a chamada real).

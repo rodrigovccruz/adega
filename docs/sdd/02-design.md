@@ -19,7 +19,7 @@
 |--------|---------|--------|
 | OCR do rótulo | **Tesseract.js** (servidor) | OCR gratuito, sem depender de API paga de visão computacional (spec 04) |
 | Storage de imagem | **Vercel Blob** (ou equivalente) | Guardar a foto do rótulo; integra nativamente com o deploy na Vercel |
-| Dados externos do vinho | **Wine-Searcher API** atrás de uma interface `WineExternalInfoProvider` | Preço médio, nota e comentários de referência (spec 05); interface própria permite trocar de provedor sem reescrever a spec |
+| Dados externos do vinho | **GrapeMinds API** atrás de uma interface `WineExternalInfoProvider` | Preço médio, nota e comentários de referência (spec 05); interface própria permite trocar de provedor sem reescrever a spec |
 
 ## Arquitetura
 
@@ -71,7 +71,7 @@ GastronomicSuggestion (Pairing)
 ExternalWineInfo (spec 05)
 ├── id
 ├── wineId (FK, único, cascade delete)
-├── provider (ex.: wine_searcher)
+├── provider (ex.: grapeminds)
 ├── averagePrice, currency
 ├── rating
 ├── commentsSummary
@@ -140,7 +140,7 @@ Implementar em camada de repositório/serviço, não só no componente React.
 - Validação Zod em toda entrada
 - Rate limit no login
 - CSRF protegido pelo padrão do framework (Server Actions / tokens)
-- Chaves de API externas (Wine-Searcher, storage de blob) ficam só em variável de ambiente do servidor, nunca expostas ao client (spec 04, 05)
+- Chaves de API externas (GrapeMinds, storage de blob) ficam só em variável de ambiente do servidor, nunca expostas ao client (spec 04, 05)
 - Upload de imagem (rótulo) validado por tamanho e content-type antes de processar (spec 04)
 
 ## Observabilidade (mínimo)
@@ -154,4 +154,4 @@ Implementar em camada de repositório/serviço, não só no componente React.
 | Variável | Spec | Descrição |
 |----------|------|-----------|
 | `BLOB_READ_WRITE_TOKEN` (ou equivalente do provedor de storage) | 04 | Acesso ao storage da foto do rótulo |
-| `WINE_SEARCHER_API_KEY` | 05 | Chave da API paga de dados externos de vinho |
+| `GRAPEMINDS_API_KEY` | 05 | Chave da API paga de dados externos de vinho |

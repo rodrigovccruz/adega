@@ -54,7 +54,7 @@ preço/avaliação de mercado. Duas evoluções aprovadas para especificação:
   pré-preencher nome/produtor/safra/tipo automaticamente. Ver
   [`specs/04-foto-rotulo-ocr.md`](./specs/04-foto-rotulo-ocr.md).
 - **Integração com dados externos de vinho** — buscar preço médio de mercado,
-  nota/avaliação e comentários de uma fonte externa (Wine-Searcher) para
+  nota/avaliação e comentários de uma fonte externa (GrapeMinds) para
   cada vinho cadastrado. Ver
   [`specs/05-integracao-dados-externos.md`](./specs/05-integracao-dados-externos.md).
 
