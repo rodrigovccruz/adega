@@ -32,7 +32,7 @@ Visão → Constituição → Specs → Design → Plano → Implementação →
 | [02-vinhos.md](./specs/02-vinhos.md) | implementada |
 | [03-sugestoes-gastronomicas.md](./specs/03-sugestoes-gastronomicas.md) | implementada |
 | [04-foto-rotulo-ocr.md](./specs/04-foto-rotulo-ocr.md) | implementada (reconhecimento em produção não verificado — ver spec) |
-| [05-integracao-dados-externos.md](./specs/05-integracao-dados-externos.md) | aprovada para planejamento (aguardando contrato da GrapeMinds) |
+| [05-integracao-dados-externos.md](./specs/05-integracao-dados-externos.md) | implementada (verificação contra API real da GrapeMinds em produção não feita — ver spec) |
 
 ## MVP em uma frase
 
@@ -44,8 +44,8 @@ Ao cadastrar, o usuário pode tirar foto do rótulo para pré-preencher o formul
 
 ## Próximo passo
 
-MVP (Fases 0–4) implementado e em produção. **Fase 5 — Foto do rótulo com
-OCR** implementada (spec 04); falta validar em produção que o
-reconhecimento de texto funciona de ponta a ponta. Próximo passo:
-**Fase 6 — Integração com a GrapeMinds API** (spec 05) — endpoint, payload
-e chave já confirmados, pronta para implementar.
+MVP (Fases 0–4) e v1.1 (Fase 5 — OCR, Fase 6 — GrapeMinds) implementados.
+Falta validar em produção o que o sandbox de desenvolvimento não permite
+testar: reconhecimento real do OCR (spec 04) e uma chamada de sucesso contra
+a API real da GrapeMinds (spec 05) — ambos bloqueados pela rede do ambiente
+de dev, não pela implementação em si.

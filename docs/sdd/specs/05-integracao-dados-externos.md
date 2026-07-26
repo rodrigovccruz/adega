@@ -2,7 +2,7 @@
 
 ## Status
 
-`aprovada para planejamento`
+`implementada — verificação contra a API real da GrapeMinds pendente` (ver nota em Riscos)
 
 ## Objetivo
 
@@ -128,14 +128,14 @@ Só campos **vazios** do vinho são preenchidos pela busca — nunca sobrescreve
 
 ## Critérios de aceite
 
-- [ ] Buscar por um termo com resultado retorna lista de candidatos (nome, produtor, região)
-- [ ] Selecionar um candidato preenche os campos vazios do formulário, sem sobrescrever campos já preenchidos
-- [ ] Descrição, notas de degustação, harmonização e perfil de sabor aparecem como referência ao selecionar um candidato
-- [ ] Buscar termo sem resultado mostra mensagem clara, sem quebrar a tela
-- [ ] Indisponibilidade/timeout da API externa não impede o resto do formulário/página de funcionar
-- [ ] Botão "Ver informações de mercado" funciona no detalhe de um vinho já salvo, incluindo aplicar campos vazios ao cadastro
-- [ ] Usuário não consegue aplicar dado externo a vinho de outro usuário
-- [ ] Toda informação externa exibida traz a atribuição da fonte (GrapeMinds)
+- [ ] Buscar por um termo com resultado retorna lista de candidatos (nome, produtor, região) — **não verificado contra a API real**: o sandbox de desenvolvimento bloqueia a rede até `api.grapeminds.eu`; mapeamento coberto por teste unitário com payload de exemplo real, mas o fluxo ponta a ponta contra a API precisa ser validado após o deploy
+- [x] Selecionar um candidato preenche os campos vazios do formulário, sem sobrescrever campos já preenchidos (lógica testada; depende do item acima para o dado de entrada real)
+- [x] Descrição, notas de degustação, harmonização e perfil de sabor aparecem como referência ao selecionar um candidato
+- [x] Buscar termo sem resultado mostra mensagem clara, sem quebrar a tela (testado com lista vazia mockada)
+- [x] Indisponibilidade/timeout da API externa não impede o resto do formulário/página de funcionar (verificado de verdade: sandbox sem rede para a GrapeMinds retorna 502 com a mensagem amigável, sem derrubar a página)
+- [x] Botão "Ver informações de mercado" funciona no detalhe de um vinho já salvo, incluindo aplicar campos vazios ao cadastro
+- [x] Usuário não consegue aplicar dado externo a vinho de outro usuário (endpoint de aplicar reusa `PATCH /api/wines/:id`, que já valida `resource.userId === session.userId`)
+- [x] Toda informação externa exibida traz a atribuição da fonte (GrapeMinds)
 
 ## Regras de negócio
 
@@ -152,6 +152,7 @@ Só campos **vazios** do vinho são preenchidos pela busca — nunca sobrescreve
 ## Riscos e decisões conhecidas
 
 - **Contrato confirmado**: URL base, autenticação (`Bearer`), endpoint de busca (`GET /wines?search=`) e de detalhe (`GET /wines/{id}`), com exemplos reais de payload — sem mais pendências de descoberta de API.
+- **Verificação em produção pendente**: o sandbox de desenvolvimento bloqueia a rede de saída para `api.grapeminds.eu` (proxy do ambiente), então a implementação foi validada com testes unitários (mapeamento, cache, tratamento de erro) usando o payload de exemplo real, e os caminhos de erro (401, query curta, indisponibilidade) foram exercitados de ponta a ponta contra o servidor local — mas a chamada de sucesso contra a API de verdade da GrapeMinds ainda não foi observada. Validar manualmente após o deploy (usar um termo comum, ex.: "Malbec", e conferir se a resposta bate com o mapeamento desta spec).
 - **Sem preço/comentários**: decisão registrada — a feature segue só com o que a GrapeMinds realmente oferece (descrição, notas de degustação, harmonização, perfil de sabor). Se preço/comentários forem importantes no futuro, precisa de outra fonte de dados e uma spec nova.
 - **Cache só em memória**: reinício do servidor (comum em serverless/deploy) limpa o cache; aceito, já que é só uma otimização de custo, não uma garantia.
 - **Rate limit real** (250 req/mês no plano gratuito) não é contado pelo nosso lado — dependemos do HTTP 429 da própria API para sinalizar limite atingido; não há contador local persistente (resetaria a cada reinício e daria falsa sensação de proteção).

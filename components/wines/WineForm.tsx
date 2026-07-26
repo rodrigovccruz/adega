@@ -4,6 +4,8 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { wineTypes, wineTypeLabels } from "@/lib/validation/wine";
 import { LabelScanner, type LabelScanResult } from "@/components/wines/LabelScanner";
+import { ExternalWineSearch } from "@/components/wines/ExternalWineSearch";
+import type { ExternalWineDetail } from "@/lib/external-wine/mapping";
 
 export type WineFormValues = {
   name: string;
@@ -87,6 +89,18 @@ export function WineForm({
     }));
   }
 
+  function handleExternalApply({ fields }: ExternalWineDetail) {
+    setValues((prev) => ({
+      ...prev,
+      name: prev.name || fields.name || prev.name,
+      producer: prev.producer || fields.producer || prev.producer,
+      type: prev.type === emptyValues.type && fields.type ? fields.type : prev.type,
+      region: prev.region || fields.region || prev.region,
+      country: prev.country || fields.country || prev.country,
+      grape: prev.grape || fields.grape || prev.grape,
+    }));
+  }
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     setError(null);
@@ -132,6 +146,8 @@ export function WineForm({
       )}
 
       <LabelScanner photoUrl={values.labelPhotoUrl || undefined} onScanned={handleScanned} />
+
+      <ExternalWineSearch initialQuery={values.name} onApply={handleExternalApply} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>

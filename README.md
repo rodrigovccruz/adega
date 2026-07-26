@@ -20,14 +20,15 @@ Plano completo: [`docs/sdd/README.md`](./docs/sdd/README.md)
 MVP implementado (Fases 0–4 do plano SDD): autenticação, inventário de vinhos e
 sugestões gastronômicas com testes automatizados.
 
-v1.1: foto do rótulo com OCR implementada
-([spec 04](./docs/sdd/specs/04-foto-rotulo-ocr.md); reconhecimento de texto
-ainda não validado em produção — só o fallback sem rede foi testado). Em
-planejamento: busca numa base externa de vinhos (GrapeMinds) para completar
-campos e mostrar descrição/notas de degustação/harmonização/perfil de sabor
-de referência — sem preço nem avaliações, que a API não oferece
-([spec 05](./docs/sdd/specs/05-integracao-dados-externos.md)). Endpoint e
-payload já confirmados, pronta para implementar.
+v1.1 implementada: foto do rótulo com OCR
+([spec 04](./docs/sdd/specs/04-foto-rotulo-ocr.md)) e busca numa base externa
+de vinhos GrapeMinds para completar campos vazios e mostrar
+descrição/notas de degustação/harmonização/perfil de sabor de referência —
+sem preço nem avaliações, que a API não oferece
+([spec 05](./docs/sdd/specs/05-integracao-dados-externos.md)). Ambas com
+testes automatizados; falta validar em produção o reconhecimento real do OCR
+e uma chamada de sucesso contra a API da GrapeMinds — o sandbox de
+desenvolvimento bloqueia a rede para os dois serviços externos.
 
 ### Variáveis de ambiente (v1.1)
 

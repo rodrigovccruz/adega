@@ -7,6 +7,7 @@ import { wineTypeLabels } from "@/lib/validation/wine";
 import { QuantityAdjuster } from "@/components/wines/QuantityAdjuster";
 import { DeleteWineButton } from "@/components/wines/DeleteWineButton";
 import { PairingsSection } from "@/components/pairings/PairingsSection";
+import { MarketInfoPanel } from "@/components/wines/MarketInfoPanel";
 
 type RouteParams = { params: Promise<{ id: string }> };
 
@@ -93,6 +94,19 @@ export default async function VinhoDetalhePage({ params }: RouteParams) {
           <p className="text-wine-950">{wine.notes}</p>
         </div>
       )}
+
+      <div className="mb-8">
+        <MarketInfoPanel
+          wineId={wine.id}
+          currentFields={{
+            name: wine.name,
+            producer: wine.producer,
+            region: wine.region,
+            country: wine.country,
+            grape: wine.grape,
+          }}
+        />
+      </div>
 
       <PairingsSection
         wineId={wine.id}
