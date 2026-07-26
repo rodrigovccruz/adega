@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { wineTypes, wineTypeLabels } from "@/lib/validation/wine";
+import { LabelScanner, type LabelScanResult } from "@/components/wines/LabelScanner";
 
 export type WineFormValues = {
   name: string;
@@ -17,6 +18,7 @@ export type WineFormValues = {
   purchasePrice: string;
   location: string;
   notes: string;
+  labelPhotoUrl: string;
 };
 
 const emptyValues: WineFormValues = {
@@ -32,6 +34,7 @@ const emptyValues: WineFormValues = {
   purchasePrice: "",
   location: "",
   notes: "",
+  labelPhotoUrl: "",
 };
 
 function toPayload(values: WineFormValues) {
@@ -48,6 +51,7 @@ function toPayload(values: WineFormValues) {
     purchasePrice: values.purchasePrice ? Number(values.purchasePrice) : undefined,
     location: values.location || undefined,
     notes: values.notes || undefined,
+    labelPhotoUrl: values.labelPhotoUrl || undefined,
   };
 }
 
@@ -70,6 +74,17 @@ export function WineForm({
 
   function update<K extends keyof WineFormValues>(key: K, value: WineFormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function handleScanned({ labelPhotoUrl, suggested }: LabelScanResult) {
+    setValues((prev) => ({
+      ...prev,
+      labelPhotoUrl,
+      name: prev.name || suggested.name || prev.name,
+      producer: prev.producer || suggested.producer || prev.producer,
+      vintage: prev.vintage || (suggested.vintage ? String(suggested.vintage) : prev.vintage),
+      type: prev.type === emptyValues.type && suggested.type ? suggested.type : prev.type,
+    }));
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -115,6 +130,8 @@ export function WineForm({
           {error}
         </p>
       )}
+
+      <LabelScanner photoUrl={values.labelPhotoUrl || undefined} onScanned={handleScanned} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>

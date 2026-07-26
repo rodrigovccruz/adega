@@ -43,12 +43,22 @@ export default async function VinhoDetalhePage({ params }: RouteParams) {
       </div>
 
       <div className="flex items-start justify-between gap-4 flex-wrap mb-6">
-        <div>
-          <span className="text-xs font-medium bg-wine-800 text-cream-100 px-2 py-1 rounded-full">
-            {wineTypeLabels[wine.type]}
-          </span>
-          <h1 className="font-display text-4xl text-wine-900 mt-2">{wine.name}</h1>
-          <p className="text-wine-800/80">{wine.producer}</p>
+        <div className="flex items-start gap-4">
+          {wine.labelPhotoUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={wine.labelPhotoUrl}
+              alt={`Rótulo de ${wine.name}`}
+              className="w-20 h-20 object-cover rounded-md border border-wine-700/20"
+            />
+          )}
+          <div>
+            <span className="text-xs font-medium bg-wine-800 text-cream-100 px-2 py-1 rounded-full">
+              {wineTypeLabels[wine.type]}
+            </span>
+            <h1 className="font-display text-4xl text-wine-900 mt-2">{wine.name}</h1>
+            <p className="text-wine-800/80">{wine.producer}</p>
+          </div>
         </div>
 
         <div className="flex gap-2">

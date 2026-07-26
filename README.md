@@ -20,10 +20,19 @@ Plano completo: [`docs/sdd/README.md`](./docs/sdd/README.md)
 MVP implementado (Fases 0–4 do plano SDD): autenticação, inventário de vinhos e
 sugestões gastronômicas com testes automatizados.
 
-Em planejamento (v1.1, ainda não implementado): foto do rótulo com OCR
-([spec 04](./docs/sdd/specs/04-foto-rotulo-ocr.md)) e integração com dados
-externos de preço/avaliação via Wine-Searcher
-([spec 05](./docs/sdd/specs/05-integracao-dados-externos.md)).
+v1.1: foto do rótulo com OCR implementada
+([spec 04](./docs/sdd/specs/04-foto-rotulo-ocr.md); reconhecimento de texto
+ainda não validado em produção — só o fallback sem rede foi testado). Em
+planejamento: integração com dados externos de preço/avaliação via
+GrapeMinds ([spec 05](./docs/sdd/specs/05-integracao-dados-externos.md)),
+aguardando detalhes de endpoint da API.
+
+### Variáveis de ambiente (v1.1)
+
+| Variável | Obrigatória? | Descrição |
+|----------|--------------|-----------|
+| `BLOB_READ_WRITE_TOKEN` | não | Storage da foto do rótulo (Vercel Blob). Sem ela, em dev a foto é salva em `public/uploads/labels` |
+| `GRAPEMINDS_API_KEY` | não (feature ainda não chama a API de verdade) | Dados externos de vinho (spec 05) |
 
 ## Stack
 

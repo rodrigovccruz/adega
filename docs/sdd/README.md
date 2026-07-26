@@ -31,8 +31,8 @@ Visão → Constituição → Specs → Design → Plano → Implementação →
 | [01-autenticacao.md](./specs/01-autenticacao.md) | implementada |
 | [02-vinhos.md](./specs/02-vinhos.md) | implementada |
 | [03-sugestoes-gastronomicas.md](./specs/03-sugestoes-gastronomicas.md) | implementada |
-| [04-foto-rotulo-ocr.md](./specs/04-foto-rotulo-ocr.md) | aprovada para planejamento |
-| [05-integracao-dados-externos.md](./specs/05-integracao-dados-externos.md) | aprovada para planejamento |
+| [04-foto-rotulo-ocr.md](./specs/04-foto-rotulo-ocr.md) | implementada (reconhecimento em produção não verificado — ver spec) |
+| [05-integracao-dados-externos.md](./specs/05-integracao-dados-externos.md) | aprovada para planejamento (aguardando contrato da GrapeMinds) |
 
 ## MVP em uma frase
 
@@ -44,7 +44,9 @@ Ao cadastrar, o usuário pode tirar foto do rótulo para pré-preencher o formul
 
 ## Próximo passo
 
-MVP (Fases 0–4) implementado e em produção. Specs 04 e 05 aprovadas para
-planejamento — próximo passo é **Fase 5 — Foto do rótulo com OCR**, seguida
-da **Fase 6 — Integração com dados externos** (esta última depende de
-confirmar o acesso à GrapeMinds API antes de implementar a chamada real).
+MVP (Fases 0–4) implementado e em produção. **Fase 5 — Foto do rótulo com
+OCR** implementada (spec 04); falta validar em produção que o
+reconhecimento de texto funciona de ponta a ponta. Próximo passo:
+**Fase 6 — Integração com dados externos** (spec 05), que depende dos
+detalhes de endpoint/resposta da GrapeMinds API antes de implementar a
+chamada real.

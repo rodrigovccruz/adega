@@ -38,6 +38,7 @@ export default async function EditarVinhoPage({ params }: RouteParams) {
           purchasePrice: wine.purchasePrice?.toString() ?? "",
           location: wine.location ?? "",
           notes: wine.notes ?? "",
+          labelPhotoUrl: wine.labelPhotoUrl ?? "",
         }}
       />
     </div>

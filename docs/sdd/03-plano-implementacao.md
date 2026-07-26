@@ -104,8 +104,9 @@ Cada fase gera um PR vertical com critérios de aceite da spec correspondente.
 
 **DoD**
 
-- Critérios de `specs/04-foto-rotulo-ocr.md` atendidos
-- Riscos conhecidos (limite de tempo/tamanho serverless do Tesseract.js, precisão em rótulos estilizados) validados em ambiente de deploy real
+- Critérios de `specs/04-foto-rotulo-ocr.md` atendidos — implementado e testado (unitário + manual), exceto o reconhecimento de texto de verdade, que não pôde ser exercitado no ambiente de desenvolvimento (rede bloqueada até o CDN de dados de idioma do Tesseract)
+- Pendente: validar em produção que uma foto de rótulo real gera sugestões corretas, e observar a latência real do download do pacote de idioma a cada invocação serverless
+- Mitigado: timeout de 20s na chamada de OCR evita travar a requisição indefinidamente quando a rede está lenta/indisponível
 
 ---
 

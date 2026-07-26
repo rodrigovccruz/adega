@@ -35,6 +35,7 @@ export const wineSchema = z.object({
   purchasePrice: optionalNumber,
   location: optionalTrimmedString,
   notes: optionalTrimmedString,
+  labelPhotoUrl: optionalTrimmedString,
 });
 
 export type WineInput = z.infer<typeof wineSchema>;

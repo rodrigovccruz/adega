@@ -55,6 +55,24 @@ describe("isolamento entre usuários", () => {
     );
     await expect(deleteWine(userB.id, wine.id)).rejects.toBeInstanceOf(NotFoundError);
   });
+
+  it("usuário B não acessa a foto do rótulo de vinho do usuário A (spec 04, OCR-N4)", async () => {
+    const userA = await createTestUser({ email: "a@example.com" });
+    const userB = await createTestUser({ email: "b@example.com" });
+
+    const wine = await createWine(userA.id, {
+      name: "Vinho com rótulo",
+      producer: "Prod A",
+      type: "tinto",
+      quantity: 1,
+      labelPhotoUrl: "/uploads/labels/exemplo.jpg",
+    });
+
+    const ownView = await getWine(userA.id, wine.id);
+    expect(ownView.labelPhotoUrl).toBe("/uploads/labels/exemplo.jpg");
+
+    await expect(getWine(userB.id, wine.id)).rejects.toBeInstanceOf(NotFoundError);
+  });
 });
 
 describe("regras de negócio do inventário", () => {
