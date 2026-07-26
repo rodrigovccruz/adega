@@ -111,7 +111,7 @@ Todas as rotas de dados exigem sessão. Sempre filtrar por `session.userId`.
 - `GET/POST /api/wines/:id/pairings`
 - `PATCH/DELETE /api/pairings/:id`
 - `POST /api/wines/label-scan` — multipart (imagem) → `{ labelPhotoUrl, suggested: { name?, producer?, vintage?, type? } }` (spec 04, não salva o vinho)
-- `POST /api/wines/:id/external-info` — aciona busca/refresh na fonte externa → `ExternalWineInfo` atualizado (spec 05)
+- `POST /api/wines/:id/external-info` — busca na GrapeMinds (`/wines/search` + `/wines/{id}`); tenta adquirir PSL (`POST /licence/{wine_id}`) e só persiste em `ExternalWineInfo` se conseguir (spec 05)
 
 Erros: `400` validação, `401` não autenticado, `403/404` recurso de outro usuário, `409` e-mail duplicado, `502` falha da API externa (spec 05, não derruba a página).
 

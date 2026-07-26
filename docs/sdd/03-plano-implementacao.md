@@ -115,16 +115,18 @@ Cada fase gera um PR vertical com critérios de aceite da spec correspondente.
 **Tasks**
 
 1. Model `ExternalWineInfo` + migration
-2. Interface `WineExternalInfoProvider` + implementação para GrapeMinds
-3. `POST /api/wines/:id/external-info`: busca/refresh com cache por `fetchedAt`
-4. UI: bloco "Informações externas" no detalhe do vinho (preço, nota, comentários, atribuição de fonte)
-5. Tratamento de "não encontrado" e de falha/indisponibilidade da API externa
-6. Testes: autorização, cache/refresh, fallback sem correspondência
+2. Interface `WineExternalInfoProvider` + implementação para GrapeMinds (`GET /wines/search`, `GET /wines/{id}`)
+3. Fluxo de licença: `POST /licence/{wine_id}` antes de persistir; sem licença (402/403), mostra sem salvar (EXT-08/EXT-09)
+4. `POST /api/wines/:id/external-info`: busca/refresh com cache por `fetchedAt` (só quando licenciado)
+5. UI: bloco "Informações externas" no detalhe do vinho (preço, nota, comentários, atribuição de fonte)
+6. Tratamento de "não encontrado" e de falha/indisponibilidade da API externa
+7. Testes: autorização, cache/refresh, fallback sem correspondência, fallback sem PSL
 
 **DoD**
 
 - Critérios de `specs/05-integracao-dados-externos.md` atendidos
-- Chave `GRAPEMINDS_API_KEY` configurada (ou provider mockável para desenvolvimento sem a chave)
+- Chave `GRAPEMINDS_API_KEY` configurada (já disponível)
+- Payload de exemplo de `GET /wines/{id}` confirmado antes de mapear os campos de preço/nota/comentários
 
 ---
 
