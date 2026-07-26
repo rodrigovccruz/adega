@@ -19,7 +19,7 @@
 |--------|---------|--------|
 | OCR do rótulo | **Tesseract.js** (servidor) | OCR gratuito, sem depender de API paga de visão computacional (spec 04) |
 | Storage de imagem | **Vercel Blob** (ou equivalente) | Guardar a foto do rótulo; integra nativamente com o deploy na Vercel |
-| Dados externos do vinho | **GrapeMinds API** atrás de uma interface `WineExternalInfoProvider` | Preço médio, nota e comentários de referência (spec 05); interface própria permite trocar de provedor sem reescrever a spec |
+| Dados externos do vinho | **GrapeMinds API**, cache em memória (1h), sem persistência em banco | Descrição, notas de degustação, harmonização e perfil de sabor de referência (spec 05) |
 
 ## Arquitetura
 
@@ -56,8 +56,7 @@ Wine
 ├── location, notes
 ├── labelPhotoUrl (spec 04)
 ├── createdAt, updatedAt
-├── pairings[]
-└── externalInfo (spec 05, 1:1)
+└── pairings[]
 
 GastronomicSuggestion (Pairing)
 ├── id
@@ -67,24 +66,16 @@ GastronomicSuggestion (Pairing)
 ├── description
 ├── intensity
 └── createdAt
-
-ExternalWineInfo (spec 05)
-├── id
-├── wineId (FK, único, cascade delete)
-├── provider (ex.: grapeminds)
-├── averagePrice, currency
-├── rating
-├── commentsSummary
-├── sourceUrl
-└── fetchedAt
 ```
+
+Spec 05 não adiciona modelo/coluna nenhum — dado externo é buscado ao vivo e
+exibido, nunca persistido (ver `specs/05-integracao-dados-externos.md`).
 
 Índices sugeridos:
 
 - `Wine(userId, name)`
 - `Wine(userId, type)`
 - `GastronomicSuggestion(wineId)`
-- `ExternalWineInfo(wineId)` único
 - Full-text simples via `ILIKE` no MVP; evoluir para search dedicado se necessário
 
 ## Rotas de UI
@@ -111,7 +102,8 @@ Todas as rotas de dados exigem sessão. Sempre filtrar por `session.userId`.
 - `GET/POST /api/wines/:id/pairings`
 - `PATCH/DELETE /api/pairings/:id`
 - `POST /api/wines/label-scan` — multipart (imagem) → `{ labelPhotoUrl, suggested: { name?, producer?, vintage?, type? } }` (spec 04, não salva o vinho)
-- `POST /api/wines/:id/external-info` — busca na GrapeMinds (`/wines/search` + `/wines/{id}`); tenta adquirir PSL (`POST /licence/{wine_id}`) e só persiste em `ExternalWineInfo` se conseguir (spec 05)
+- `GET /api/wines/external-search?q=` — busca na GrapeMinds (`GET /wines?search=`), cache em memória 1h (spec 05)
+- `GET /api/wines/external/:externalId` — detalhe enriquecido de um candidato (`GET /wines/{id}`) (spec 05, não persiste)
 
 Erros: `400` validação, `401` não autenticado, `403/404` recurso de outro usuário, `409` e-mail duplicado, `502` falha da API externa (spec 05, não derruba a página).
 
@@ -141,6 +133,7 @@ Implementar em camada de repositório/serviço, não só no componente React.
 - Rate limit no login
 - CSRF protegido pelo padrão do framework (Server Actions / tokens)
 - Chaves de API externas (GrapeMinds, storage de blob) ficam só em variável de ambiente do servidor, nunca expostas ao client (spec 04, 05)
+- Dado da GrapeMinds nunca é persistido — só cache em memória de processo, sem gravação em banco (spec 05)
 - Upload de imagem (rótulo) validado por tamanho e content-type antes de processar (spec 04)
 
 ## Observabilidade (mínimo)

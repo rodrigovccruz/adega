@@ -23,16 +23,18 @@ sugestões gastronômicas com testes automatizados.
 v1.1: foto do rótulo com OCR implementada
 ([spec 04](./docs/sdd/specs/04-foto-rotulo-ocr.md); reconhecimento de texto
 ainda não validado em produção — só o fallback sem rede foi testado). Em
-planejamento: integração com dados externos de preço/avaliação via
-GrapeMinds ([spec 05](./docs/sdd/specs/05-integracao-dados-externos.md)),
-aguardando detalhes de endpoint da API.
+planejamento: busca numa base externa de vinhos (GrapeMinds) para completar
+campos e mostrar descrição/notas de degustação/harmonização/perfil de sabor
+de referência — sem preço nem avaliações, que a API não oferece
+([spec 05](./docs/sdd/specs/05-integracao-dados-externos.md)). Endpoint e
+payload já confirmados, pronta para implementar.
 
 ### Variáveis de ambiente (v1.1)
 
 | Variável | Obrigatória? | Descrição |
 |----------|--------------|-----------|
 | `BLOB_READ_WRITE_TOKEN` | não | Storage da foto do rótulo (Vercel Blob). Sem ela, em dev a foto é salva em `public/uploads/labels` |
-| `GRAPEMINDS_API_KEY` | não (feature ainda não chama a API de verdade) | Dados externos de vinho (spec 05) |
+| `GRAPEMINDS_API_KEY` | não (busca externa fica indisponível sem ela, com mensagem amigável) | Base de vinhos GrapeMinds (spec 05) |
 
 ## Stack
 

@@ -47,15 +47,16 @@ Um usuário consegue, em menos de 5 minutos após o cadastro:
 
 ## Escopo v1.1 (pós-MVP, aprovado para spec)
 
-MVP validado, mas o usuário ainda cadastra tudo manualmente e não tem referência de
-preço/avaliação de mercado. Duas evoluções aprovadas para especificação:
+MVP validado, mas o usuário ainda cadastra tudo manualmente e não tem nenhuma
+referência externa sobre o vinho. Duas evoluções aprovadas para especificação:
 
 - **Scanner de rótulo (OCR)** — tirar foto do rótulo na hora de cadastrar e
   pré-preencher nome/produtor/safra/tipo automaticamente. Ver
   [`specs/04-foto-rotulo-ocr.md`](./specs/04-foto-rotulo-ocr.md).
-- **Integração com dados externos de vinho** — buscar preço médio de mercado,
-  nota/avaliação e comentários de uma fonte externa (GrapeMinds) para
-  cada vinho cadastrado. Ver
+- **Integração com base de vinhos (GrapeMinds)** — buscar um vinho numa base
+  externa para completar campos vazios e ver descrição, notas de degustação,
+  harmonização sugerida e perfil de sabor de referência (a API não expõe
+  preço nem avaliações/comentários de usuários). Ver
   [`specs/05-integracao-dados-externos.md`](./specs/05-integracao-dados-externos.md).
 
 Continuam fora de escopo (backlog não priorizado): Integração com e-commerce
